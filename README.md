@@ -45,7 +45,7 @@ sudo apt-get install -y \
       libvtk6-dev libgtk-3-dev \
       libatlas-base-dev gfortran \
       libparmetis-dev \
-      python-wstool python-catkin-tools \
+      python-wstool python-catkin-tools 
 ```
 
 - GTSAM's Optional dependencies (highly recommended for speed)
