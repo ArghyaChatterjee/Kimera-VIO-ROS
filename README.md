@@ -42,7 +42,6 @@ sudo apt-get install -y \
       cmake build-essential unzip pkg-config autoconf \
       libboost-all-dev \
       libjpeg-dev libpng-dev libtiff-dev \
-# Use libvtk5-dev, libgtk2.0-dev in ubuntu 16.04 \
       libvtk6-dev libgtk-3-dev \
       libatlas-base-dev gfortran \
       libparmetis-dev \
