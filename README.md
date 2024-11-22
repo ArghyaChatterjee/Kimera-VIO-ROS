@@ -39,31 +39,25 @@ Install [Intel Threaded Building Blocks (TBB)](http://www.threadingbuildingblock
 ## B. KimeraVIO ROS wrapper Installation
 
 ```bash
-# Setup catkin workspace
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/
+source /opt/ros/noetic/setup.bash
+mkdir -p ~/kimera_vio_ws/src
+cd ~/kimera_vio_ws/
 catkin init
-catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_TANGENT_PREINTEGRATION=OFF
+# catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_TANGENT_PREINTEGRATION=OFF
 catkin config -a --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGTSAM_TANGENT_PREINTEGRATION=OFF -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DOPENGV_BUILD_WITH_MARCH_NATIVE=OFF
 catkin config --merge-devel
+source devel/setup.bash 
 
 # Add workspace to bashrc for automatic sourcing of workspace.
-echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
+# echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
 
-# Clone repo
-cd ~/catkin_ws/src
-# For ssh:
+# Clone the repo
+cd ~/kimera_vio_ws/src
 git clone git@github.com:MIT-SPARK/Kimera-VIO-ROS.git
-# For https:
-# git clone https://github.com/MIT-SPARK/Kimera-VIO-ROS.git
 
 # Install dependencies from rosinstall file using wstool
 wstool init # Use unless wstool is already initialized
-
-# For ssh:
 wstool merge Kimera-VIO-ROS/install/kimera_vio_ros_ssh.rosinstall
-# For https
-# wstool merge Kimera-VIO-ROS/install/kimera_vio_ros_https.rosinstall
 
 # download and update repos:
 wstool update
@@ -80,7 +74,7 @@ Finally, compile:
 catkin build
 
 # Refresh workspace
-source ~/catkin_ws/devel/setup.bash
+source ~/kimera_vio_ws/devel/setup.bash
 ```
 
 # 2. Usage
