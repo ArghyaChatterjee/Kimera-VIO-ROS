@@ -6,23 +6,6 @@ ROS Wrapper for [Kimera](https://github.com/MIT-SPARK/Kimera).
     <img src="docs/media/Kimera-VIO-ROS_mesh.gif">
 </div>
 
-## Publications
-
-We kindly ask to cite our paper if you find this library useful:
-
-- A. Rosinol, M. Abate, Y. Chang, L. Carlone, [**Kimera: an Open-Source Library for Real-Time Metric-Semantic Localization and Mapping**](https://arxiv.org/abs/1910.02490). IEEE Intl. Conf. on Robotics and Automation (ICRA), 2020. [arXiv:1910.02490](https://arxiv.org/abs/1910.02490).
- 
- ```bibtex
- @InProceedings{Rosinol20icra-Kimera,
-   title = {Kimera: an Open-Source Library for Real-Time Metric-Semantic Localization and Mapping},
-   author = {Rosinol, Antoni and Abate, Marcus and Chang, Yun and Carlone, Luca},
-   year = {2020},
-   booktitle = {IEEE Intl. Conf. on Robotics and Automation (ICRA)},
-   url = {https://github.com/MIT-SPARK/Kimera},
-   pdf = {https://arxiv.org/pdf/1910.02490.pdf}
- }
-```
-
 # 1. Installation
 
 ## A. Prerequisities
@@ -61,9 +44,7 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin init
 catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_TANGENT_PREINTEGRATION=OFF
-# On Ubuntu 16.04:
-# catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_USE_SYSTEM_EIGEN=ON -DGTSAM_TANGENT_PREINTEGRATION=OFF
-
+catkin config -a --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGTSAM_TANGENT_PREINTEGRATION=OFF -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DOPENGV_BUILD_WITH_MARCH_NATIVE=OFF
 catkin config --merge-devel
 
 # Add workspace to bashrc for automatic sourcing of workspace.
