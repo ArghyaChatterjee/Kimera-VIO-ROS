@@ -46,14 +46,13 @@ catkin init
 # catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_TANGENT_PREINTEGRATION=OFF
 catkin config -a --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGTSAM_TANGENT_PREINTEGRATION=OFF -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DOPENGV_BUILD_WITH_MARCH_NATIVE=OFF
 catkin config --merge-devel
-source devel/setup.bash 
 
 # Add workspace to bashrc for automatic sourcing of workspace.
-# echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
+# echo 'source ~/kimera_vio_ws/devel/setup.bash' >> ~/.bashrc
 
 # Clone the repo
 cd ~/kimera_vio_ws/src
-git clone git@github.com:MIT-SPARK/Kimera-VIO-ROS.git
+git clone git@github.com:ArghyaChatterjee/Kimera-VIO-ROS.git
 
 # Install dependencies from rosinstall file using wstool
 wstool init # Use unless wstool is already initialized
