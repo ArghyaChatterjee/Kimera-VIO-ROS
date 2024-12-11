@@ -26,7 +26,6 @@ sudo apt-get install -y \
       cmake build-essential unzip pkg-config autoconf \
       libboost-all-dev \
       libjpeg-dev libpng-dev libtiff-dev \
-# Use libvtk5-dev, libgtk2.0-dev in ubuntu 16.04 \
       libvtk7-dev libgtk-3-dev \
       libatlas-base-dev gfortran \
       libparmetis-dev \
@@ -37,18 +36,14 @@ sudo apt-get install -y \
 Install [Intel Threaded Building Blocks (TBB)](http://www.threadingbuildingblocks.org/): `sudo apt-get install libtbb-dev`
 
 ## B. KimeraVIO ROS wrapper Installation
-
+Kimera-VIO should use system Eigen (Eigen 3.3.7) and GTSAM-4.1 or 4.0. For forcing it to use system Eigen, we have to add an extra flag `DGTSAM_USE_SYSTEM_EIGEN=ON`. For GTSAM-4.1, you have to change the version inside `kimera_vio_ros_ssh.rosinstall` or `kimera_vio_ros_https.rosinstall` file.
 ```bash
 source /opt/ros/noetic/setup.bash
 mkdir -p ~/kimera_vio_ws/src
 cd ~/kimera_vio_ws/
 catkin init
-# catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -DGTSAM_TANGENT_PREINTEGRATION=OFF
-catkin config -a --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGTSAM_TANGENT_PREINTEGRATION=OFF -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DOPENGV_BUILD_WITH_MARCH_NATIVE=OFF
+catkin config -a --cmake-args -DGTSAM_USE_SYSTEM_EIGEN=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGTSAM_TANGENT_PREINTEGRATION=OFF -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DOPENGV_BUILD_WITH_MARCH_NATIVE=OFF
 catkin config --merge-devel
-
-# Add workspace to bashrc for automatic sourcing of workspace.
-# echo 'source ~/kimera_vio_ws/devel/setup.bash' >> ~/.bashrc
 
 # Clone the repo
 cd ~/kimera_vio_ws/src
