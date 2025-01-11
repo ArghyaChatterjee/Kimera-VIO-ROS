@@ -73,7 +73,38 @@ source ~/kimera_vio_ws/devel/setup.bash
 
 # 2. Usage
 ## Work with ZED Data
-Download a zed dataset from [[here]]().
+Kimera VIO works with monocular images since the feature tracker (GFTT) works well with monocular images. So, you have to feed the monocular image data with IMU to kimera vio pipeline. Also, you have to change couple of parameters inside kimera-vio package. 
+
+Inside `RightCameraParams.yaml`, use the extrinsics like this:
+```
+# Sensor extrinsics wrt. the body-frame.
+T_BS:
+  cols: 4
+  rows: 4
+  data: [ 0.0,  0.0, 1.0,  0.0,
+         -1.0,  0.0, 0.0, -0.03,
+          0.0, -1.0, 0.0,  0.013,
+          0.0,  0.0, 0.0,  1.0]
+```
+Inside `LeftCameraParams.yaml`, use the extrinsics like this:
+```
+# Sensor extrinsics wrt. the body-frame.
+T_BS:
+  cols: 4
+  rows: 4
+  data: [ 0.0,  0.0, 1.0, 0.0,
+         -1.0,  0.0, 0.0, 0.03,
+          0.0, -1.0, 0.0, 0.013,
+          0.0,  0.0, 0.0, 1.0]
+```
+This matches the orientation of the left and right frames from kimera vio package in the name of `zedm_left_camera_frame_kimera` and `zedm_right_camera_frame_kimera` with the default optical frame of zed-mini in the name of `zedm_left_camera_optical_frame` and `zedm_right_camera_optical_frame`. 
+
+<div align="center">
+    <img src="docs/media/zedm_camera_optical_frame.png" width="400">
+    <img src="docs/media/kimera_camera_optical_frame.png" width="400">
+</div>
+
+Download a zed dataset from [[here]]() which has both stereo rgb and monocular image.
 
 ### Online
   1. In the first terminal, launch zed camera:
@@ -81,7 +112,17 @@ Download a zed dataset from [[here]]().
   roslaunch zed_wrapper zedm.launch
   ```
 
-  2. In another terminal, launch KimeraVIO ROS wrapper:
+  2. In another terminal, you have to launch the Kimera-VIO ROS wrapper. You have the following options to provide from a zed camera:
+  ```
+    <!-- Subscriber Topics -->
+  <arg name="left_cam_topic"        default="/$(arg robot_name)/zed_node/left/image_rect_gray"/>
+  <arg name="right_cam_topic"       default="/$(arg robot_name)/zed_node/right/image_rect_gray"/>
+  <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data"/>
+  <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
+  ```
+  You can set the robot_name as `zedm` for zed mini and `zed2` for zed2 cameras.
+  
+  Launch KimeraVIO ROS wrapper without loop closure module:
   ```bash
   roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=false
   ```
@@ -94,6 +135,11 @@ Download a zed dataset from [[here]]().
   roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=true lcd_no_optimize:=true
   ```
   To achieve the best results with Kimera-VIO, wait for the LCD vocabulary to finish loading before starting the camera.
+
+  Also, if you want to use an external odometry source as assisting odom topic, inside the `kimera_vio_ros_zedm.launch` file, make `use_external_odom` parameter to `true` (default is `false`) and give a topic name to it. For us, this is:
+  ```
+  <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
+  ```
 
   3. In another terminal, launch rviz for visualization:
   ```bash
@@ -112,7 +158,7 @@ Download a zed dataset from [[here]]().
   ```
   <arg name="use_sim_time"      default="true"/>
   ```
-  Optional: If you want to use Kimera VIO with External Visual Loop Closures:
+  Optional: If you want to use Kimera VIO with External Visual Loop Closures (ORB SLAM):
   ```bash
   roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=true lcd_no_optimize:=true
   ```

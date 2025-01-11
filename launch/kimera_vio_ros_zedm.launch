@@ -4,7 +4,9 @@
   <arg name="verbosity"         default="0"/>
   <arg name="online"            default="true"/>
   <arg name="use_lcd"           default="false"/>
-  <arg name="use_external_odom" default="true"/>
+  <!-- If you want to use external odometry -->
+  <arg name="use_external_odom" default="false"/>
+  <!-- If you want to use rosbag, change sim time to true -->
   <arg name="use_sim_time"      default="false"/>
 
   <arg name="do_coarse_temporal_sync" default="false"/>
@@ -28,8 +30,8 @@
   <arg name="right_cam_frame_id" default="zedm_right_camera_frame_kimera"/>
 
   <!-- Subscriber Topics -->
-  <arg name="left_cam_topic"        default="/$(arg robot_name)/zed_node/left/image_rect_color"/>
-  <arg name="right_cam_topic"       default="/$(arg robot_name)/zed_node/right/image_rect_color"/>
+  <arg name="left_cam_topic"        default="/$(arg robot_name)/zed_node/left/image_rect_gray"/>
+  <arg name="right_cam_topic"       default="/$(arg robot_name)/zed_node/right/image_rect_gray"/>
   <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data"/>
   <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
 

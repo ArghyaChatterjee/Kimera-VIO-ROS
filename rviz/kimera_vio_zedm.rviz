@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /Odometry1/Shape1
-        - /back_projected_point_clouds1
         - /Imu1/Status1
       Splitter Ratio: 0.5301204919815063
     Tree Height: 174
@@ -185,13 +184,13 @@ Visualization Manager:
     - Class: rviz/Group
       Displays:
         - Class: rviz/Marker
-          Enabled: false
+          Enabled: true
           Marker Topic: /kimera_vio_ros/graph_nodes
           Name: Nodes
           Namespaces:
             {}
           Queue Size: 100
-          Value: false
+          Value: true
         - Class: rviz/Marker
           Enabled: true
           Marker Topic: /kimera_vio_ros/posegraph_viewer/loop_edges
@@ -201,21 +200,21 @@ Visualization Manager:
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
-          Enabled: false
+          Enabled: true
           Marker Topic: /kimera_vio_ros/posegraph_viewer/rejected_loop_edges
           Name: Rejected Edges
           Namespaces:
             {}
           Queue Size: 100
-          Value: false
+          Value: true
         - Class: rviz/Marker
-          Enabled: false
+          Enabled: true
           Marker Topic: /kimera_vio_ros/posegraph_viewer/odometry_edges
           Name: Odometry Edges
           Namespaces:
             {}
           Queue Size: 100
-          Value: false
+          Value: true
       Enabled: true
       Name: PoseGraph
     - Alpha: 1
@@ -226,7 +225,7 @@ Visualization Manager:
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
-      Line Style: Lines
+      Line Style: Billboards
       Line Width: 0.029999999329447746
       Name: Optimized Trajectory
       Offset:
@@ -269,8 +268,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: -0.28220635652542114
-        Min Value: -8.530463218688965
+        Max Value: 0.9638647437095642
+        Min Value: -4.7512431144714355
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -346,7 +345,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 9.476554870605469
+      Distance: 4.6096086502075195
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -354,17 +353,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.3805449604988098
-        Y: -0.2256077527999878
-        Z: -4.172325134277344e-07
+        X: 0.4169595241546631
+        Y: -0.02286696434020996
+        Z: -9.343327747046715e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.025203395634889603
+      Pitch: 0.38020291924476624
       Target Frame: base_link
-      Yaw: 0.7053909301757812
+      Yaw: 5.463572025299072
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 6.814720153808594
