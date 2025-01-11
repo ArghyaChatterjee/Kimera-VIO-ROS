@@ -72,9 +72,67 @@ source ~/kimera_vio_ws/devel/setup.bash
 ```
 
 # 2. Usage
+## Work with ZED Data
+Download a zed dataset from [[here]]().
+
+### Online
+  1. In the first terminal, launch zed camera:
+  ```bash
+  roslaunch zed_wrapper zedm.launch
+  ```
+
+  2. In another terminal, launch KimeraVIO ROS wrapper:
+  ```bash
+  roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=false
+  ```
+  Inside `kimera_vio_ros_zedm.launch`, make `use_sim_time` parameter to `false` to use system clock.
+  ```
+  <arg name="use_sim_time"      default="false"/>
+  ```
+  Optional: If you want to use Kimera VIO with External Visual Loop Closures:
+  ```bash
+  roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=true lcd_no_optimize:=true
+  ```
+  To achieve the best results with Kimera-VIO, wait for the LCD vocabulary to finish loading before starting the camera.
+
+  3. In another terminal, launch rviz for visualization:
+  ```bash
+  rviz -d $(rospack find kimera_vio_ros)/rviz/kimera_vio_zedm.rviz
+  ```
+  > Note: this rviz configuration makes use of a rviz plugin: [mesh_rviz_plugins](https://github.com/MIT-SPARK/mesh_rviz_plugins). To visualize the textured 3D mesh, clone this plugin to your catkin workspace and catkin build it (note that this should be done automatically via `wstool`)
+
+### Offline - rosbag
+  1. As a general good practice, open a new terminal and run: `roscore`
+
+  2. In another terminal, launch KimeraVIO ROS wrapper:
+  ```bash
+  roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=false
+  ```
+  Before launching, inside `kimera_vio_ros_zedm.launch`, make `use_sim_time` parameter to `true` to use the rosbag clock.
+  ```
+  <arg name="use_sim_time"      default="true"/>
+  ```
+  Optional: If you want to use Kimera VIO with External Visual Loop Closures:
+  ```bash
+  roslaunch kimera_vio_ros kimera_vio_ros_zedm.launch online:=true viz_type:=1 use_lcd:=true lcd_no_optimize:=true
+  ```
+  To achieve the best results with Kimera-VIO, wait for the LCD vocabulary to finish loading before starting the rosbag.
+
+  3. In another terminal, launch rviz for visualization:
+  ```bash
+  rviz -d $(rospack find kimera_vio_ros)/rviz/kimera_vio_zedm.rviz
+  ```
+  > Note: this rviz configuration makes use of a rviz plugin: [mesh_rviz_plugins](https://github.com/MIT-SPARK/mesh_rviz_plugins). To visualize the textured 3D mesh, clone this plugin to your catkin workspace and catkin build it (note that this should be done automatically via `wstool`).
+
+  4. Finally, in another terminal, launch the downloaded zed rosbag:
+  ```bash
+  rosbag play --clock /PATH/TO/ZED_ROSBAG
+  ```
+
+## Work with Euroc Data
 Download a [Euroc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) rosbag: for example [V1_01_easy](http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.bag).
 
-## Online
+### Offline - rosbag
   1. As a general good practice, open a new terminal and run: `roscore`
 
   2. In another terminal, launch KimeraVIO ROS wrapper:
@@ -99,7 +157,7 @@ Download a [Euroc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisuali
   > source ~/catkin_ws/devel/setup.bash # Change `bash` to the shell you use.
   > ```
 
-## Offline
+### Offline
   In this mode, the provided rosbag will be first parsed and then sent to the VIO for processing.
   This is particularly useful when debugging to avoid potential ROS networking issues.
   - To run, launch the KimeraVIO ROS wrapper with the `online` parameter set to `false` and specify the rosbag's path:
@@ -107,7 +165,7 @@ Download a [Euroc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisuali
   roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=false rosbag_path:="PATH/TO/ROSBAG"
   ```
 
-## Running Unit tests
+### Running Unit tests
 
 To run unit tests using catkin for this specific package, call (after building the package and sourcing the workspace):
 
