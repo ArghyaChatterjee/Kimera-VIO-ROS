@@ -111,13 +111,18 @@ Download a zed dataset from [[here]]() which has both stereo rgb and monocular i
   ```bash
   roslaunch zed_wrapper zedm.launch
   ```
+  2. In another terminal, you have to run the imu transform package to transform imu data to `base_link` frame from `zedm_imu_link` frame.
+  ```bash
+  roslaunch tf_imu_to_base zedm_imu_transform.launch
+  ```
+  This node will subscribe to `/zedm/zed_node/imu/data` topic and publish to `/zedm/zed_node/imu/data_transformed` topic.
 
-  2. In another terminal, you have to launch the Kimera-VIO ROS wrapper. You have the following options to provide from a zed camera:
+  3. In another terminal, you have to launch the Kimera-VIO ROS wrapper. You have the following options to provide from a zed camera:
   ```
     <!-- Subscriber Topics -->
   <arg name="left_cam_topic"        default="/$(arg robot_name)/zed_node/left/image_rect_gray"/>
   <arg name="right_cam_topic"       default="/$(arg robot_name)/zed_node/right/image_rect_gray"/>
-  <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data"/>
+  <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data_transformed"/>
   <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
   ```
   You can set the robot_name as `zedm` for zed mini and `zed2` for zed2 cameras.
@@ -141,7 +146,7 @@ Download a zed dataset from [[here]]() which has both stereo rgb and monocular i
   <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
   ```
 
-  3. In another terminal, launch rviz for visualization:
+  4. In another terminal, launch rviz for visualization:
   ```bash
   rviz -d $(rospack find kimera_vio_ros)/rviz/kimera_vio_zedm.rviz
   ```

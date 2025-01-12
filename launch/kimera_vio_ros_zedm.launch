@@ -1,6 +1,6 @@
 <launch>
   <arg name="robot_name" default="zedm"/>
-  <arg name="dataset_name"      default="zedm"/>
+  <arg name="dataset_name"      default="ZEDm"/>
   <arg name="verbosity"         default="0"/>
   <arg name="online"            default="true"/>
   <arg name="use_lcd"           default="false"/>
@@ -32,7 +32,7 @@
   <!-- Subscriber Topics -->
   <arg name="left_cam_topic"        default="/$(arg robot_name)/zed_node/left/image_rect_gray"/>
   <arg name="right_cam_topic"       default="/$(arg robot_name)/zed_node/right/image_rect_gray"/>
-  <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data"/>
+  <arg name="imu_topic"             default="/$(arg robot_name)/zed_node/imu/data_transformed"/>
   <arg name="external_odom_topic"   default="/$(arg robot_name)/zed_node/odom"/>
 
   <!-- Empty string ("") means no ground-truth available. Used for init if
