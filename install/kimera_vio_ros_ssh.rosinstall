@@ -36,7 +36,7 @@
     version: master
 - git:
     local-name: Kimera-VIO
-    uri: git@github.com:MIT-SPARK/Kimera-VIO.git
+    uri: git@github.com:ArghyaChatterjee/Kimera-VIO.git.git
     version: master
 - git:
     local-name: Kimera-VIO-ROS
@@ -54,4 +54,7 @@
     local-name: disparity_image_proc
     uri: git@github.com:MIT-SPARK/disparity_image_proc.git
     version: master
-
+- git:
+    local-name: tf_imu_to_base
+    uri: git@github.com:ArghyaChatterjee/tf_imu_to_base.git
+    version: feature/ros1
